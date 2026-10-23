@@ -1,0 +1,12 @@
+Buky-Mapas
+Copyright 2026 Butake SpA
+
+Este producto se distribuye bajo la Licencia Apache, versión 2.0 (ver LICENSE).
+
+Incluye o usa obras de terceros con sus propias licencias:
+- Glifos de la fuente Roboto (data/fonts/), Licencia Apache 2.0.
+- Íconos Material Symbols en el sprite cl (data/sprites/), Licencia Apache 2.0.
+- Datos de © colaboradores de OpenStreetMap (ODbL 1.0) y esquema © OpenMapTiles (CC-BY 4.0),
+  descargados o generados al instalar; no se distribuyen en este repositorio.
+
+Detalle completo en docs/atribuciones.md.

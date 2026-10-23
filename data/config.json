@@ -1,0 +1,36 @@
+{
+  "options": {
+    "paths": {
+      "mbtiles": "mbtiles",
+      "sprites": "sprites",
+      "fonts": "fonts"
+    }
+  },
+  "styles": {
+    "cl-light": {
+      "style": "styles/cl-light.json",
+      "serve_rendered": false,
+      "tilejson": {
+        "type": "vector"
+      }
+    },
+    "cl-dark": {
+      "style": "styles/cl-dark.json",
+      "serve_rendered": false,
+      "tilejson": {
+        "type": "vector"
+      }
+    }
+  },
+  "data": {
+    "openmaptiles": {
+      "mbtiles": "chile.mbtiles"
+    },
+    "natural_earth": {
+      "mbtiles": "natural_earth.mbtiles"
+    },
+    "terrain": {
+      "mbtiles": "terrain.mbtiles"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+graphhopper:
+  datareader.file: ""
+  graph.location: /graph-cache
+  # car.json viene incluido en GraphHopper; car_avoid.json se monta desde data/.
+  custom_models.directory: /config
+  profiles:
+    - name: car
+      custom_model_files: [car.json]
+    - name: car_custom
+      custom_model_files: [car.json, car_avoid.json]
+  profiles_ch:
+    - profile: car
+    - profile: car_custom
+  profiles_lm:
+    - profile: car_custom
+  graph.encoded_values: car_access, car_average_speed, road_access
+  prepare.min_network_size: 200
+  # prepara CH y LM de los dos perfiles en paralelo: la primera importación tarda menos
+  prepare.ch.threads: 2
+  prepare.lm.threads: 2
+  prepare.subnetworks.threads: 1
+  routing.snap_preventions_default: tunnel, bridge, ferry
+  routing.max_visited_nodes: 1000000
+  routing.non_ch.max_waypoint_distance: 1000000
+  import.osm.ignored_highways: footway,construction,cycleway,path,steps
+  graph.dataaccess.default_type: RAM_STORE
+
+server:
+  application_connectors:
+    - type: http
+      port: 8080
+      bind_host: 0.0.0.0
+      max_request_header_size: 50k
+  request_log:
+    appenders: []
+  admin_connectors:
+    - type: http
+      port: 8990
+      bind_host: 127.0.0.1
+
+logging:
+  appenders:
+    - type: console
+      time_zone: UTC
+      log_format: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

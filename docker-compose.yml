@@ -1,0 +1,111 @@
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+x-tileserver: &tileserver
+  image: ${MAPS_IMAGE:-maptiler/tileserver-gl-light:v4.4.2}
+  restart: unless-stopped
+  init: true
+  mem_limit: ${MAPS_MEMORY_LIMIT:-512m}
+  expose:
+    - "8080"
+  volumes:
+    - ${DATA_PATH:-./data}:/data:ro
+  command: ["--config", "/data/config.json", "--public_url", "${MAPS_PUBLIC_URL:-http://localhost:8085}"]
+  healthcheck:
+    test: ["CMD", "node", "-e", "require('http').get('http://127.0.0.1:8080/health', r => process.exit(r.statusCode === 200 ? 0 : 1)).on('error', () => process.exit(1))"]
+    interval: 15s
+    timeout: 5s
+    retries: 3
+    start_period: 20s
+  logging: *logging
+  networks:
+    - butake-net
+
+# GraphHopper azul/verde: corre un color a la vez. Al actualizar, el otro importa
+# el .pbf nuevo en su propio volumen; cuando está sano el gateway cambia a él.
+x-graphhopper: &graphhopper
+  image: ${ROUTING_IMAGE:-israelhikingmap/graphhopper:11.0}
+  restart: unless-stopped
+  init: true
+  mem_limit: ${ROUTING_MEMORY_LIMIT:-3g}
+  expose:
+    - "8080"
+  command: >
+    --config /config/config.yml
+    --input /data/map.osm.pbf
+    --graph-cache /graph-cache
+  environment:
+    # el heap se ajusta al límite de memoria del contenedor
+    - JAVA_OPTS=${ROUTING_JAVA_OPTS:--XX:MaxRAMPercentage=75 -XX:+UseG1GC -XX:+UseStringDeduplication -XX:+ExitOnOutOfMemoryError}
+  healthcheck:
+    test: ["CMD-SHELL", "curl -fsS -o /dev/null http://127.0.0.1:8080/health || exit 1"]
+    interval: 15s
+    timeout: 5s
+    retries: 6
+    # la primera importación de un país construye el grafo (CH + LM) y tarda minutos
+    start_period: 15m
+  logging: *logging
+  networks:
+    - butake-net
+
+services:
+  # Única puerta publicada: compresión, Cache-Control, caché y límite de peticiones.
+  # Los clientes internos (red butake-service-shared) usan este mismo contenedor:
+  # mapas en :8080 y rutas en :8081.
+  gateway:
+    image: ${GATEWAY_IMAGE:-nginx:1.27.5-alpine}
+    container_name: ${GATEWAY_CONTAINER_NAME:-butake-service-maps-gateway}
+    restart: unless-stopped
+    init: true
+    mem_limit: ${GATEWAY_MEMORY_LIMIT:-128m}
+    ports:
+      - "${MAPS_BIND_HOST:-0.0.0.0}:${MAPS_PORT:-8080}:8080"
+      - "${ROUTING_BIND_HOST:-0.0.0.0}:${ROUTING_PORT:-8989}:8081"
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./gateway/state:/etc/nginx/state:ro
+      - maps_cache:/var/cache/nginx
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    logging: *logging
+    networks:
+      - butake-net
+      - shared
+
+  # TileServer, una instancia. Al actualizar el mapa se recarga (SIGHUP) y mientras
+  # tanto el gateway responde desde su caché; la caché se vacía cuando ya está listo.
+  maps:
+    <<: *tileserver
+
+  routing-blue:
+    <<: *graphhopper
+    volumes:
+      - ${DATA_PATH:-./data}/countries/${ACTIVE_COUNTRY:-chile}:/data:ro
+      - ${DATA_PATH:-./data}/config.yml:/config/config.yml:ro
+      - ${DATA_PATH:-./data}/car_avoid.json:/config/car_avoid.json:ro
+      - routing_blue:/graph-cache
+  routing-green:
+    <<: *graphhopper
+    volumes:
+      - ${DATA_PATH:-./data}/countries/${ACTIVE_COUNTRY:-chile}:/data:ro
+      - ${DATA_PATH:-./data}/config.yml:/config/config.yml:ro
+      - ${DATA_PATH:-./data}/car_avoid.json:/config/car_avoid.json:ro
+      - routing_green:/graph-cache
+
+volumes:
+  routing_blue:
+  routing_green:
+  maps_cache:
+
+networks:
+  butake-net:
+    driver: bridge
+  shared:
+    name: ${MAPS_SHARED_NETWORK:-butake-service-shared}
+    external: true

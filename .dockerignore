@@ -1,0 +1,10 @@
+.env
+.env.dev
+.env.prod
+.DS_Store
+.git
+data/countries
+data/mbtiles
+data/terrain
+data/sources
+data/routing-cache

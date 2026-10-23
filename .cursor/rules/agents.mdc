@@ -1,0 +1,10 @@
+---
+description: Guía canónica del repo para todas las IAs
+alwaysApply: true
+---
+
+La fuente única de verdad de este repo es **`AGENTS.md`** (raíz). Léela primero.
+
+- Trabaja en `develop`; `main` es producción.
+- Cero secretos en el repo (van en runtime).
+- Commits `tipo(módulo):` en español, sin co-autoría de IA.

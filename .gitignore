@@ -1,0 +1,23 @@
+.env
+.env.dev
+.env.prod
+.DS_Store
+*.swp
+
+# Datos pesados y generados
+data/mbtiles/
+data/countries/
+data/terrain
+data/sources/
+
+# Cache y runtime
+data/routing-cache/
+
+# build de sprite POI (deps node)
+scripts/poi-sprite-build/node_modules/
+scripts/poi-sprite-build/package-lock.json
+
+# Python
+__pycache__/
+# estado local del gateway (color activo de GraphHopper): lo escriben los scripts
+gateway/state/

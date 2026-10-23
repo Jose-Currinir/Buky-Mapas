@@ -1,0 +1,25 @@
+{
+  "priority": [
+    {
+      "if": "in_zona_restringida_centro",
+      "multiply_by": "0.05"
+    }
+  ],
+  "areas": {
+    "zona_restringida_centro": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-70.6580, -33.4320],
+            [-70.6430, -33.4320],
+            [-70.6430, -33.4440],
+            [-70.6580, -33.4440],
+            [-70.6580, -33.4320]
+          ]
+        ]
+      }
+    }
+  }
+}
