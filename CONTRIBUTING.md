@@ -1,6 +1,6 @@
 # Cómo contribuir
 
-¡Gracias por tu interés en Buky-Mapas! El proyecto lo mantiene Butake SpA y acepta
+¡Gracias por tu interés en Butake-Mapas! El proyecto lo mantiene Butake SpA y acepta
 pull requests.
 
 ## Antes de abrir un PR

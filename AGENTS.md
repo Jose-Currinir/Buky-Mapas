@@ -1,4 +1,4 @@
-# AGENTS.md — Buky-Mapas
+# AGENTS.md — Butake-Mapas
 
 > **Fuente canónica para TODA IA de codificación** (Claude Code, Codex, Cursor, Copilot, etc.).
 > `CLAUDE.md`, `.cursor/rules/` y `.github/copilot-instructions.md` son punteros finos a este
@@ -8,13 +8,13 @@
 
 ## 1. Qué es
 
-**Buky-Mapas** — servicio de mapas/routing de Butake
+**Butake-Mapas** — servicio de mapas/routing de Butake
 
 - Tipo: `service` · Familia: `infra` · Visibilidad: `PRIVATE`
 - Parte del ecosistema **Butake** (Butake SpA).
 
 Servicio de infraestructura que publica mapas vectoriales (TileServer GL) y cálculo de rutas
-(GraphHopper) para las apps Butake. Lo consumen Buky-Mesh y Newy-Notificacion. Se despliega
+(GraphHopper) para las apps Butake. Lo consumen Butake-Mesh y Newy-Notificacion. Se despliega
 aparte con Docker Compose y se expone por Cloudflare Tunnel en `mapas.ejemplo.cl` y
 `rutas.ejemplo.cl`.
 

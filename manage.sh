@@ -2,8 +2,8 @@
 set -euo pipefail
 
 # =========================================================
-# Buky-Mapas: gestor de mapas y rutas (CLI)
-# Buky-Mapas - Sistema multipaís
+# Butake-Mapas: gestor de mapas y rutas (CLI)
+# Butake-Mapas - Sistema multipaís
 # =========================================================
 
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -75,7 +75,7 @@ show_banner() {
     echo " |____/ \__,_|\__\__,_|_|\_\___|     |_|  |_|\__,_| .__/|___/"
     echo "                                                   |_|       "
     echo -e "${NC}"
-    echo "  --- Buky-Mapas · Arquitectura multipaís ---"
+    echo "  --- Butake-Mapas · Arquitectura multipaís ---"
     echo -e "  País activo (Rutas): ${GREEN}${CURRENT_COUNTRY}${NC}"
     echo ""
 }
