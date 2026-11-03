@@ -1,4 +1,4 @@
-<h1 align="center">Buky-Mapas</h1>
+<h1 align="center">Butake-Mapas</h1>
 
 <p align="center">
   Servidor propio de mapas vectoriales y cálculo de rutas para Chile, listo para clonar,
@@ -29,7 +29,7 @@
 
 ## Qué es
 
-Buky-Mapas reúne en un solo repositorio todo lo necesario para servir mapas y rutas de Chile
+Butake-Mapas reúne en un solo repositorio todo lo necesario para servir mapas y rutas de Chile
 desde tu propia infraestructura, sin depender de proveedores de mapas comerciales:
 
 - **Mapas vectoriales** para [MapLibre](https://maplibre.org/) (web, Android, iOS) con dos
@@ -54,8 +54,8 @@ desde tu propia infraestructura, sin depender de proveedores de mapas comerciale
 ## Inicio rápido
 
 ```bash
-git clone https://github.com/Jose-Currinir/Buky-Mapas.git
-cd Buky-Mapas
+git clone https://github.com/Jose-Currinir/Butake-Mapas.git
+cd Butake-Mapas
 ./manage.sh install --dev
 ```
 

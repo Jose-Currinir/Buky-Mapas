@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Prepara Buky-Mapas en un servidor nuevo (Ubuntu Server 22.04/24.04, amd64 o arm64,
+# Prepara Butake-Mapas en un servidor nuevo (Ubuntu Server 22.04/24.04, amd64 o arm64,
 # p. ej. EC2 t4g.large) o en local. Idempotente: se puede volver a ejecutar.
 #   1. dependencias del sistema (Docker, curl, sqlite3, python3) en Ubuntu
 #   2. .env desde la plantilla (prod o dev) con la URL pública indicada

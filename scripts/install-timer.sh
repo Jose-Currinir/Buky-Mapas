@@ -2,14 +2,14 @@
 #
 # Programa la actualización automática de datos con systemd (Linux):
 # todos los domingos a las 04:00 (hora del servidor) ejecuta ./manage.sh update.
-# Los registros quedan en: journalctl -u buky-mapas-update
+# Los registros quedan en: journalctl -u butake-mapas-update
 #
 # Uso:  ./scripts/install-timer.sh            instala o actualiza el temporizador
 #       ./scripts/install-timer.sh --quitar   lo elimina
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-UNIT=buky-mapas-update
+UNIT=butake-mapas-update
 command -v systemctl >/dev/null || { echo "Este servidor no usa systemd." >&2; exit 1; }
 
 if [[ "${1:-}" == "--quitar" ]]; then
@@ -22,7 +22,7 @@ fi
 
 sudo tee "/etc/systemd/system/$UNIT.service" >/dev/null <<UNITFILE
 [Unit]
-Description=Buky-Mapas: actualiza mapa y rutas desde OSM sin cortar el servicio
+Description=Butake-Mapas: actualiza mapa y rutas desde OSM sin cortar el servicio
 After=docker.service network-online.target
 Wants=network-online.target
 
@@ -35,7 +35,7 @@ UNITFILE
 
 sudo tee "/etc/systemd/system/$UNIT.timer" >/dev/null <<UNITFILE
 [Unit]
-Description=Buky-Mapas: actualización semanal de datos
+Description=Butake-Mapas: actualización semanal de datos
 
 [Timer]
 OnCalendar=Sun *-*-* 04:00:00

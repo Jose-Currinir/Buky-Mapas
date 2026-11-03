@@ -1,6 +1,6 @@
 # Atribuciones y licencias de terceros
 
-Buky-Mapas usa datos, fuentes, íconos y programas de terceros. Cada uno conserva su licencia.
+Butake-Mapas usa datos, fuentes, íconos y programas de terceros. Cada uno conserva su licencia.
 
 ## Datos
 

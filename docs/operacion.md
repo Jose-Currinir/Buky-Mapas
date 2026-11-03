@@ -1,4 +1,4 @@
-# Operación de Buky-Mapas
+# Operación de Butake-Mapas
 
 Guía técnica: contrato operativo, instalación, actualización, estilos, datos, rutas,
 configuración, scripts y rendimiento. La presentación del proyecto está en el
@@ -8,7 +8,7 @@ configuración, scripts y rendimiento. La presentación del proyecto está en el
 
 | Área | Valor |
 |---|---|
-| Repositorio | `Jose-Currinir/Buky-Mapas` |
+| Repositorio | `Jose-Currinir/Butake-Mapas` |
 | Runtime | Docker Compose standalone, Ubuntu Server 22.04/24.04 (amd64 o arm64) |
 | Servicios | `gateway` (nginx, única puerta publicada), `maps` (TileServer GL light), `routing-blue` / `routing-green` (GraphHopper; corre uno a la vez) |
 | Red compartida | `butake-service-shared` (externa; `up.sh` la crea si falta) |
@@ -41,8 +41,8 @@ Los archivos pesados quedan fuera de git (GitHub no admite archivos de más de 1
 En un Ubuntu Server limpio (EC2 t4g.large o un servidor propio):
 
 ```bash
-git clone https://github.com/Jose-Currinir/Buky-Mapas.git
-cd Buky-Mapas
+git clone https://github.com/Jose-Currinir/Butake-Mapas.git
+cd Butake-Mapas
 ./manage.sh install --prod --url https://mapas.ejemplo.cl
 ```
 
@@ -184,7 +184,7 @@ Plantillas: [`.env.dev.example`](../.env.dev.example), [`.env.prod.example`](../
 ## Estructura
 
 ```text
-Buky-Mapas/
+Butake-Mapas/
 ├── docker-compose.yml          # gateway, maps y routing
 ├── gateway/nginx.conf          # compresión, Cache-Control, caché y límite de peticiones
 ├── manage.sh                   # CLI interactiva: países, .pbf, .mbtiles, assets, logs
